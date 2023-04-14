@@ -60,8 +60,7 @@ class Dense(VGroup, Layer):  # TODO: Inherit from Layer and Module
         filler = None
         if units > max_neurons:
             num_neurons = max_neurons
-            filler = VGroup(*[LayerFiller(radius=.03, **kwargs) for _ in range(3)])
-            filler.arrange(direction, buff=buff / 3)
+            filler = LayerFiller(3, radius=.03, direction=direction, **kwargs)
 
         for _ in range(num_neurons):
             if _ == num_neurons // 2 and units > max_neurons and filler is not None:
