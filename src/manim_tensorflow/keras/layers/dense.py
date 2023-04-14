@@ -1,10 +1,11 @@
 from manim import *
 
+from manim_tensorflow.utils.layer import Layer
 from manim_tensorflow.utils.layer_filler import LayerFiller
 from manim_tensorflow.utils.neuron import Neuron
 
 
-class Dense(VGroup):  # TODO: Inherit from Layer and Module
+class Dense(VGroup, Layer):  # TODO: Inherit from Layer and Module
     def __init__(
             self,
             units: int,
