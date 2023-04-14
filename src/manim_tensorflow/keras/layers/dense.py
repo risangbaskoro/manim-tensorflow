@@ -8,7 +8,7 @@ class Dense(VGroup):  # TODO: Inherit from Layer and Module
     def __init__(
             self,
             units: int,
-            neuron_labels: str | None = None,
+            neuron_labels: Tex | str | None = None,
             neurons_config: dict | None = None,
             **kwargs
     ):
@@ -27,16 +27,24 @@ class Dense(VGroup):  # TODO: Inherit from Layer and Module
 
         self.units = units
 
-        self.neurons = self._create_neurons(self.neurons_config, color=kwargs.get("color", GRAY_B))
+        self.neurons = self._create_neurons(
+            self.neurons_config,
+            color=kwargs.get("color", GRAY_B)
+        )
+
         self.neuron_labels = neuron_labels
 
         self.add(self.neurons)
 
-        # TODO: Add SurroundingRectangle
+        self.surrounding_rectangle = self._create_surrounding_rect()
 
         # TODO: Add neuron labels (Text, Tex, etc.)
 
-    def _create_neurons(self, neurons_config, **kwargs):
+    def _create_neurons(
+            self,
+            neurons_config,
+            **kwargs
+    ) -> VGroup:
         radius = neurons_config["radius"]
         direction = neurons_config["direction"]
         stroke_width = neurons_config["stroke_width"]
@@ -71,3 +79,10 @@ class Dense(VGroup):  # TODO: Inherit from Layer and Module
         )
 
         return neurons
+
+    def _create_surrounding_rect(self) -> SurroundingRectangle:
+        return SurroundingRectangle(
+            self.neurons,
+            stroke_width=self.neurons_config["stroke_width"],
+            buff=0.1,
+        )
