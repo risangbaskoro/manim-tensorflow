@@ -13,6 +13,10 @@ class ModelScene(Scene):
             Dense(2),
         ])
 
-        self.play(Write(model))
+        self.play(Write(model), Write(model.edges))
         self.wait()
-        self.play(Write(model.edges))
+
+        for i, e in enumerate(model.edges):
+            self.play(model.forward_pass_animation(i))
+
+        self.wait()
